@@ -15,7 +15,7 @@ public class server {
         byte[] bytes = new byte[512];
         System.out.println("server start...");
         while (true) {
-            Socket accept = socket.accept();//阻塞
+            Socket accept = socket.accept();//阻塞 只有打你个一个client来连接才会读取数据
             if (accept == null) {
                 System.out.println("no conn");
                 Thread.sleep(1000);
