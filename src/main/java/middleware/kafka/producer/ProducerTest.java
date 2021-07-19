@@ -1,4 +1,4 @@
-package producer;
+package middleware.kafka.producer;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -21,7 +21,7 @@ public class ProducerTest implements Runnable{
         props.put("batch.size", 16384);
         props.put("key.serializer", StringSerializer.class.getName());
         props.put("value.serializer", StringSerializer.class.getName());
-        props.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, "producer.MyPartitioner");
+        props.put(ProducerConfig.PARTITIONER_CLASS_CONFIG, "middleware.kafka.producer.MyPartitioner");
         this.producer = new KafkaProducer<String, String>(props);
         this.topic = topicName;
     }
