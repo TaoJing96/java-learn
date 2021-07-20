@@ -1,4 +1,4 @@
-package bio.demo;
+package io.bio.demo;
 
 import java.io.IOException;
 import java.net.Socket;
