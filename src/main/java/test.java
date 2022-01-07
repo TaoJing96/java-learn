@@ -1,3 +1,5 @@
+import java.util.*;
+
 class TreeNode {
     int val;
     TreeNode left;
@@ -42,45 +44,38 @@ class ListNode {
     }
 }
 
-public class test {
+class test {
     public static void main(String[] args) {
+        TreeNode node1 = new TreeNode();
+        TreeNode node2 = new TreeNode();
+        TreeNode node3 = new TreeNode();
+        TreeNode node4 = new TreeNode();
+        node1.left = node2;
+        node1.right = node3;
+        node2.left = node4;
         Solution solution = new Solution();
-        ListNode n1 = new ListNode(0);
-        ListNode n2 = new ListNode(2);
-        ListNode n3 = new ListNode(4);
-        n1.next = n2;
-        n2.next = n3;
-        TreeNode treeNode = solution.sortedListToBST(n1);
-        System.out.println(treeNode);
     }
 }
 
 class Solution {
-    public TreeNode sortedListToBST(ListNode head) {
-        return helper(head, null);
+    private int ans;
+
+    public int maxPathSum(TreeNode root) {
+        if (root == null) {
+            return root.val;
+        }
+        ans = root.val;
+        helper(root);
+        return ans;
     }
 
-    private TreeNode helper(ListNode head, ListNode tail) {
-        if (head == tail) {
-            return null;
+    private int helper(TreeNode root) {
+        if (root == null) {
+            return 0;
         }
-        ListNode midNode = splitListNode(head, tail);
-        TreeNode node = new TreeNode(midNode.val);
-        node.left = helper(head, midNode);
-        node.right = helper(midNode.next, tail);
-        return node;
-    }
-
-    private ListNode splitListNode(ListNode head, ListNode tail) {
-        if (head == tail) {
-            return null;
-        }
-        ListNode fastNode = head;
-        ListNode slowNode = head;
-        while (fastNode.next != tail && fastNode.next.next != tail) {
-            slowNode = slowNode.next;
-            fastNode = fastNode.next.next;
-        }
-        return slowNode;
+        int leftSum = helper(root.left);
+        int rightSum = helper(root.right);
+        ans = Math.max(ans, leftSum + rightSum + root.val);
+        return Math.max(Math.max(leftSum, rightSum) + root.val, 0);
     }
 }
