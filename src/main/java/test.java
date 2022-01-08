@@ -54,28 +54,37 @@ class test {
         node1.right = node3;
         node2.left = node4;
         Solution solution = new Solution();
+
     }
 }
 
 class Solution {
     private int ans;
 
-    public int maxPathSum(TreeNode root) {
-        if (root == null) {
-            return root.val;
+    public int minCameraCover(TreeNode root) {
+        ans = 0;
+        int n = helper(root);
+        if (n == 0) {
+            ans++;
         }
-        ans = root.val;
-        helper(root);
         return ans;
     }
 
-    private int helper(TreeNode root) {
-        if (root == null) {
-            return 0;
+    //0表示没有覆盖，1表示被覆盖，2表示放摄像头
+    private int helper(TreeNode node) {
+        if (node == null) {
+            return 1;
         }
-        int leftSum = helper(root.left);
-        int rightSum = helper(root.right);
-        ans = Math.max(ans, leftSum + rightSum + root.val);
-        return Math.max(Math.max(leftSum, rightSum) + root.val, 0);
+        int left = helper(node.left);
+        int right = helper(node.right);
+        if (left == 0 || right == 0) {
+            ans++;
+            return 2;
+        } else if (left == 1 && right == 1) {
+            return 0;
+        } else {
+            //其余都是被覆盖
+            return 1;
+        }
     }
 }
