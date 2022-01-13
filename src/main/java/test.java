@@ -53,38 +53,6 @@ class test {
         node1.left = node2;
         node1.right = node3;
         node2.left = node4;
-        Solution solution = new Solution();
-
     }
 }
 
-class Solution {
-    private int ans;
-
-    public int minCameraCover(TreeNode root) {
-        ans = 0;
-        int n = helper(root);
-        if (n == 0) {
-            ans++;
-        }
-        return ans;
-    }
-
-    //0表示没有覆盖，1表示被覆盖，2表示放摄像头
-    private int helper(TreeNode node) {
-        if (node == null) {
-            return 1;
-        }
-        int left = helper(node.left);
-        int right = helper(node.right);
-        if (left == 0 || right == 0) {
-            ans++;
-            return 2;
-        } else if (left == 1 && right == 1) {
-            return 0;
-        } else {
-            //其余都是被覆盖
-            return 1;
-        }
-    }
-}
