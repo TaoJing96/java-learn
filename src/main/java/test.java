@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.concurrent.ConcurrentLinkedDeque;
 
 class TreeNode {
     int val;
@@ -46,13 +47,28 @@ class ListNode {
 
 class test {
     public static void main(String[] args) {
-        TreeNode node1 = new TreeNode();
-        TreeNode node2 = new TreeNode();
-        TreeNode node3 = new TreeNode();
-        TreeNode node4 = new TreeNode();
-        node1.left = node2;
-        node1.right = node3;
-        node2.left = node4;
+        Solution solution = new Solution();
+        System.out.println(solution.maxArea(new int[]{1, 8, 6, 2, 5, 4, 8, 3, 7}));
     }
 }
 
+class Solution {
+    public int maxArea(int[] height) {
+        if (height == null || height.length < 2) {
+            return 0;
+        }
+        int ans = 0;
+        int l = 0;
+        int r = height.length - 1;
+        while (l < r) {
+            if (height[l] < height[r]) {
+                ans = Math.max(ans, height[l] * (r - l));
+                l++;
+            } else {
+                ans = Math.max(ans, height[r] * (r - l));
+                r--;
+            }
+        }
+        return ans;
+    }
+}
